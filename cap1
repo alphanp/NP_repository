@@ -34,3 +34,6 @@ df_O_TotDelay.sort_values('count',ascending=False)
 df_D_TotDelay = pd.DataFrame(df.groupby('Dest')['TotDelay'].describe())
 df_D_TotDelay.sort_values('75%',ascending=False)
 # Except for one airport(Salem Municipal Airport), 75% dealys at destination were 15 minutes or less!
+# .......
+# Potential Analyses - Cancellation stats and variation across airlines and airports
+# Analysis of carrier delays
