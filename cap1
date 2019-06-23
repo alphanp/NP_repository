@@ -27,3 +27,9 @@ df_al = pd.DataFrame(airline_series, columns=['UniqueCarrier','Airline'])
 # created a DataFrame lookup for airline codes - did not exist in Data. Also named columns, ao as to be able to join with airline stats
 df_al_stat = pd.DataFrame(df.groupby('UniqueCarrier')['TotDelay'].describe())
 # Found 75% of delays were 7 minuyes or less!
+df_O_TotDelay = pd.DataFrame(df.groupby('Origin')['TotDelay'].describe())
+df_O_TotDelay.sort_values('count',ascending=False)
+# Except for PUB airport with 2 flights in the year, 75% of aiports had a delay of 15 minutes or less!
+df_D_TotDelay = pd.DataFrame(df.groupby('Dest')['TotDelay'].describe())
+df_D_TotDelay.sort_values('75%',ascending=False)
+# Except for one airport(Salem Municipal Airport), 75% dealys at destination were 15 minutes or less!
