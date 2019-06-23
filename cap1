@@ -2,6 +2,7 @@ mport pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 # Read Airline Departure/Arrival data for domestic travel in 2008
+# had to reload the data as my previous file had only 2 months with about a million rows
 df= pd.read_csv('2008_1.csv')
 df.shape
 # The data has (7009728 rows and 29 columns)
