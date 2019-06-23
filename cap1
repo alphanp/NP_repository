@@ -37,3 +37,18 @@ df_D_TotDelay.sort_values('75%',ascending=False)
 # .......
 # Potential Analyses - Cancellation stats and variation across airlines and airports
 # Analysis of carrier delays
+df_big_delay = pd.DataFrame(df[df['TotDelay'] >60])
+df_big_delay
+# Found only carrier delay, NAS delay or weather delays
+df_canceled = pd.DataFrame(df[df['Cancelled'] == True])
+df_cancelled_sum = pd.DataFrame(df_canceled.groupby('UniqueCarrier').count())
+df_not_cancelled = pd.DataFrame(df[df['Cancelled'] != True])
+df_not_cancelled_sum= pd.DataFrame(df_not_cancelled.groupby('UniqueCarrier').count())
+
+df_canc_stat = pd.DataFrame(pd.merge(df_not_cancelled_sum.iloc[:,0:1], df_cancelled_sum.iloc[:,0:1],on='UniqueCarrier'))
+df_canc_stat.rename(columns={'Year_x': 'Active','Year_y': 'Cancelled' },inplace = True)
+df_canc_stat['Perc'] = 100* df_canc_stat['Cancelled'] /( df_canc_stat['Active'] + df_canc_stat['Cancelled'])
+df_canc_stat.sort_values('Perc',ascending=False)
+
+pd.merge(df_canc_stat,df_al,on='UniqueCarrier').sort_values(['Active','Perc'],ascending=[False,True])
+
