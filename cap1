@@ -13,3 +13,17 @@ df.columns
 #       'Cancelled', 'CancellationCode', 'Diverted', 'CarrierDelay',
 #       'WeatherDelay', 'NASDelay', 'SecurityDelay', 'LateAircraftDelay'],
 #      dtype='object')
+df.UniqueCarrier.unique()
+len(df.Origin.unique())
+len(df.Dest.unique())
+# Found 20 unique carriers 303 origins and 304 Destinations
+df['TotDelay'] = df['ActualElapsedTime'] - df['CRSElapsedTime']
+airline_series = np.array([
+    ['1D','Radixx'],['9E','Pinnacle Airlines'],['AA','American Airlines'],['AQ','Aloha Airlines'],['AS','Alaska Airlines, Inc.'],['B6','JetBlue Airways'],['BB','Seaborne Airlines'],['CO','Continental Airlines'],['DL','Delta Air Lines'],['EV','ExpressJet'],['F9','Frontier Airlines'],['FL','AirTran Airways'],['HA','Hawaiian Airlines'],['MQ','American Eagle Airlines'],['NW','Northwest Airlines'],['OH','Comair'],['OO','SkyWest Airlines'],['UA','United Airlines'],['US','US Airways'],['WN','Southwest Airlines'],['XE','ExpressJet'],['YV','Mesa Airlines']
+])
+df_al = pd.DataFrame(airline_series)
+df_al
+df_al = pd.DataFrame(airline_series, columns=['UniqueCarrier','Airline'])
+# created a DataFrame lookup for airline codes - did not exist in Data. Also named columns, ao as to be able to join with airline stats
+df_al_stat = pd.DataFrame(df.groupby('UniqueCarrier')['TotDelay'].describe())
+# Found 75% of delays were 7 minuyes or less!
